@@ -6,7 +6,7 @@ This is my repo for STATS 220.
 
 - I am undertaking a degree in The university of Auckland
 - I am taking STATS 220 because I Want know how to analyse *number*
-- I am **interested** in learning about number
+- I am **interested** in learning about *number*
 
 2. Second thing is introduce project 1:
 
