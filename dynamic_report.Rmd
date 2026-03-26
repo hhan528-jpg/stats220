@@ -1,0 +1,37 @@
+---
+title: My dynamic report
+output: html_fragment
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo=FALSE, message=FALSE, warning=FALSE, error=FALSE)
+
+```
+
+```{css}
+
+```
+# Observation of TikTok Advertising Videos
+
+This report examines patterns in TikTok advertisements over time. It focuses on advertisement types, duration, and how likely users are to click on ads.
+
+```{r}
+library(tidyverse)
+logged_data <- read_csv("https://docs.google.com/spreadsheets/d/e/2PACX-1vRXth27lgkwB03wZMIcgRUmDbYwLB9-rWO_6jS8kEG6tStVfCspbiK37AgQczb6hC1Nh7KmmqNORYGO/pub?output=csv")
+latest_data <- logged_data %>% rename(ad_type=2, ad_time=3, click_level=4) %>% select(ad_type, ad_time, click_level)
+
+total_ads <- nrow(latest_data)
+average_time <- mean(latest_data$ad_time)
+min_time <- min(latest_data$ad_time)
+max_time <- max(latest_data$ad_time)
+```
+A total of `r total_ads` advertisements were recorded. The average advertisement duration was `r round(average_time, 1)` seconds. The shortest advertisement lasted `r min_time` seconds, while the longest advertisement lasted `r max_time` seconds. The charts below show the distribution of advertisement types and click likelihood.
+
+```{r}
+latest_data %>% ggplot() + geom_bar(aes(x = ad_type), fill = "#99ff99") + labs(x="Ad type", y="Count", title="Types of ads seen by users")
+latest_data %>% ggplot() + geom_bar(aes(x = click_level), fill = "#99ff99") + labs(x="Click likelihood", y="Count", title="How likely users click ads")
+```
+
+Overall, food and drink advertisements appeared most often in the data.
+
+Most click responses were neutral or unlikely, which suggests that users were not strongly interested in clicking on most advertisements.
